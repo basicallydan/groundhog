@@ -24,8 +24,8 @@ class ActivityItem extends Component {
     const frequencyDays = frequencyHours / 24;
     const copiedDate = new Date(lastAction.getTime());
     const nextDateExpected = copiedDate.setDate(lastAction.getDate() + frequencyDays);
-    const hours = hoursBetween(lastAction, new Date());
-    const hoursUntil = frequencyHours - hours;
+    const hoursSince = hoursBetween(lastAction, new Date());
+    const hoursUntil = frequencyHours - hoursSince;
 
     console.log(title, 'days until:', hoursUntil);
 
@@ -49,10 +49,10 @@ class ActivityItem extends Component {
       this.props.onPress(id);
     };
 
-    let lastActionString = `${hours} hours ago`;
+    let lastActionString = `${hoursSince} hours ago`;
 
-    if (hours >= 24) {
-      let days = hours / 24;
+    if (hoursSince >= 24) {
+      let days = hoursSince / 24;
       lastActionString = `${days} days ago`;
     }
 
