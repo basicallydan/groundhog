@@ -20,7 +20,7 @@ class ListViewBasics extends Component {
         // 7 days ago
         id: 1,
         title: 'Water the peace lily',
-        lastAction: daysAgo(7),
+        lastAction: daysAgo(7.5),
         // Hours
         frequencyHours: 8 * 24,
       },
@@ -28,7 +28,7 @@ class ListViewBasics extends Component {
         // 9 days ago
         id: 2,
         title: 'Deep-clean the bathroom',
-        lastAction: daysAgo(12),
+        lastAction: daysAgo(13),
         // Hours
         frequencyHours: 14 * 24,
       },
@@ -80,7 +80,7 @@ class ListViewBasics extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, paddingTop: 22}}>
+      <View style={{flex: 1, paddingTop: 22, backgroundColor: '#303030'}}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={activity => <ActivityItem onPress={this.handleIncrement.bind(this)} activity={activity} />}
