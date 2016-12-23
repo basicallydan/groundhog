@@ -39,6 +39,7 @@ class ActivityItem extends Component {
       urgency = 'urgent';
     }
 
+    const mainBgColor = `${urgency}BackgroundColor`;
     const itemStyle = `${urgency}Item`;
     const plusButtonStyle = `${urgency}RoundButton`;
     const innerPlusButtonStyle = `${urgency}RoundButtonInner`;
@@ -56,6 +57,9 @@ class ActivityItem extends Component {
       lastActionString = `${days} days ago`;
     }
 
+    const maxHeightOfBubble = 30;
+    const heightOfBubble = maxHeightOfBubble - (maxHeightOfBubble * (hoursUntil / frequencyHours));
+
     return (
       <View style={styles[itemStyle]}>
         <TouchableHighlight style={styles[plusButtonStyle]} onPress={onPress}>
@@ -69,7 +73,14 @@ class ActivityItem extends Component {
             {lastActionString}
           </Text>
         </View>
-        <View style={styles[plusButtonStyle]}><Text style={styles[innerPlusButtonSmallStyle]}>{frequencyDays}</Text></View>
+        <View style={[styles[plusButtonStyle], {backgroundColor: 'transparent'}]}>
+          <View style={[styles[innerPlusButtonSmallStyle], {alignItems: 'center', justifyContent:'center',}]}>
+            <View style={[styles[mainBgColor], {width: 30, height: heightOfBubble, bottom: 0, left: 0, position: 'absolute'}]}></View>
+            <View style={{width: 30, height: 30, top: 0, left: 0}}>
+              <Text style={{color: 'white', width: 30, height: 30, lineHeight: 30, textAlign: 'center'}}>{frequencyDays}</Text>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }

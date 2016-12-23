@@ -24,6 +24,7 @@ const roundButtonShared = {
   flexDirection:'row', 
   alignItems:'center', 
   justifyContent:'center',
+  overflow: 'hidden',
 };
 const roundButtonInnerShared = {
   fontSize: 25,
@@ -35,6 +36,9 @@ const titleShared = {
 };
 
 export default StyleSheet.create({
+  urgentBackgroundColor: {
+    backgroundColor: darkRed,
+  },
   urgentItem: Object.assign({}, itemContainerShared, {
     backgroundColor: red,
   }),
@@ -50,6 +54,9 @@ export default StyleSheet.create({
   }),
   urgentTitle: Object.assign({}, titleShared),
 
+  soonBackgroundColor: {
+    backgroundColor: darkOrange,
+  },
   soonItem: Object.assign({}, itemContainerShared, {
     backgroundColor: orange,
   }),
@@ -65,6 +72,9 @@ export default StyleSheet.create({
   }),
   soonTitle: Object.assign({}, titleShared),
 
+  recentBackgroundColor: {
+    backgroundColor: darkGreen,
+  },
   recentItem: Object.assign({}, itemContainerShared, {
     backgroundColor: green,
   }),
