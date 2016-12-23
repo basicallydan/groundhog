@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View } from 'react-native';
+import { AppRegistry, Text, View } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 
@@ -58,26 +58,63 @@ class GroundhogView extends Component {
 
     this.state = {
       activities,
+      currentView: 'listView',
     };
   }
 
   handleIncrement(id) {
-    let newActivities = [];
-    newActivities = this.state.activities.slice();
-    const foundIndex = newActivities.findIndex(x => x.id === id);
-    newActivities[foundIndex] = Object.assign({}, newActivities[foundIndex], {
+    let activities = [];
+    activities = this.state.activities.slice();
+    const foundIndex = activities.findIndex(x => x.id === id);
+    activities[foundIndex] = Object.assign({}, activities[foundIndex], {
       lastAction: new Date(),
     });
     this.setState({
-      activities: newActivities,
+      activities,
     });
   }
 
   render() {
     const handleIncrement = this.handleIncrement.bind(this);
+    let view;
+
+    const goToListView = () => {
+      const activities = this.state.activities.slice();
+      activities.push({
+        id: activities.reduce((nextId, activity) => Math.max(nextId, activity.id + 1), 1),
+        title: 'Do the thing',
+        lastAction: new Date(),
+        frequencyHours: 7 * 24,
+      });
+      this.setState({
+        activities,
+        currentView: 'listView',
+      });
+    };
+
+    const goToFormView = () => {
+      this.setState({
+        currentView: 'formView',
+      });
+    };
+
+    if (this.state.currentView === 'listView') {
+      view = (
+        <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement}>
+          <Text onPress={goToFormView}>Add</Text>
+        </ActivityListView>
+      );
+    } else {
+      view = (
+        <View>
+          <Text onPress={goToListView}>Save</Text>
+        </View>
+      );
+    }
+
     return (
       <View style={{ flex: 1, paddingTop: 22, backgroundColor: '#303030' }}>
-        <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement} />
+        {view}
       </View>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { ListView, View } from 'react-native';
 
 import ActivityItem from './ActivityItem.react';
 
@@ -24,16 +24,20 @@ class ActivityListView extends Component {
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
-      />
+      <View>
+        <View style={{ height: 30 }}>{this.props.children}</View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
+        />
+      </View>
     );
   }
 }
 
 ActivityListView.propTypes = {
   activities: React.PropTypes.array,
+  children: React.PropTypes.node,
   handleIncrement: React.PropTypes.func,
 };
 
