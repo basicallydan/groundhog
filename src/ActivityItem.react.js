@@ -22,7 +22,6 @@ class ActivityItem extends Component {
   render() {
     const { id, title, lastAction, frequencyHours } = this.props.activity;
     const frequencyDays = frequencyHours / 24;
-    const copiedDate = new Date(lastAction.getTime());
     const hoursSince = hoursBetween(lastAction, new Date());
     const hoursUntil = frequencyHours - hoursSince;
 
