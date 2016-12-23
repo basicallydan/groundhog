@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { AppRegistry, ListView, Text, View, TouchableHighlight } from 'react-native';
+import { AppRegistry, View } from 'react-native';
 
-import styles from './src/styles';
-import ActivityItem from './src/ActivityItem.react';
+import ActivityListView from './src/ActivityListView.react';
 
 function daysAgo(days) {
-  var d = new Date();
+  const d = new Date();
   d.setDate(d.getDate() - days);
   return d;
 }
 
-class ListViewBasics extends Component {
+class GroundhogView extends Component {
   // Initialize the hardcoded data
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.rows = [
+    const activities = [
       {
         // 7 days ago
         id: 1,
@@ -59,36 +57,31 @@ class ListViewBasics extends Component {
     ];
 
     this.state = {
-      dataSource: ds.cloneWithRows(this.rows)
+      activities,
     };
   }
 
   handleIncrement(id) {
-    let newDS = [];
-    newDS = this.rows.slice();
-    console.log(this.rows[0].lastAction);
-    const foundIndex = newDS.findIndex(x => x.id === id);
-    newDS[foundIndex] = Object.assign({}, newDS[foundIndex], {
-      lastAction: new Date()
+    let newActivities = [];
+    newActivities = this.state.activities.slice();
+    const foundIndex = newActivities.findIndex(x => x.id === id);
+    newActivities[foundIndex] = Object.assign({}, newActivities[foundIndex], {
+      lastAction: new Date(),
     });
-    console.log(this.rows[0].lastAction);
-    this.rows = newDS;
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(newDS)
+      activities: newActivities,
     });
   }
 
   render() {
+    const handleIncrement = this.handleIncrement.bind(this);
     return (
-      <View style={{flex: 1, paddingTop: 22, backgroundColor: '#303030'}}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={activity => <ActivityItem onPress={this.handleIncrement.bind(this)} activity={activity} />}
-        />
+      <View style={{ flex: 1, paddingTop: 22, backgroundColor: '#303030' }}>
+        <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement} />
       </View>
     );
   }
 }
 
 // App registration and rendering
-AppRegistry.registerComponent('groundhog', () => ListViewBasics);
+AppRegistry.registerComponent('groundhog', () => GroundhogView);
