@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, AsyncStorage, Text, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, AsyncStorage, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import styles from './src/styles';
@@ -61,7 +61,7 @@ class GroundhogView extends Component {
 
     this.state = {
       activities: activities || [],
-      currentView: 'listView',
+      currentView: 'formView',
     };
   }
 
@@ -118,9 +118,9 @@ class GroundhogView extends Component {
       const activities = this.state.activities.slice();
       activities.push({
         id: activities.reduce((nextId, activity) => Math.max(nextId, activity.id + 1), 1),
-        title: 'Do the thing',
+        title: this.state.newTitle,
         lastAction: new Date(),
-        frequencyHours: 7 * 24,
+        frequencyHours: (+this.state.newFrequencyDays) * 24,
       });
       this.setState({
         activities,
@@ -148,6 +148,40 @@ class GroundhogView extends Component {
       view = (
         <View>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToListView}>Save</Text></TouchableOpacity>
+          <View>
+            <View style={{ marginBottom: 12 }}>
+              <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Activity title</Text>
+              <TextInput
+                style={{
+                  marginTop: 3,
+                  padding: 12,
+                  height: 40,
+                  backgroundColor: '#5f5f5f',
+                  borderColor: 'white',
+                  color: 'white',
+                }}
+                placeholder="e.g. Water plants, wash curtains, vaccum"
+                placeholderTextColor="#d4d4d4"
+                onChangeText={(newTitle) => this.setState({ newTitle })}
+              />
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Frequency</Text>
+              <TextInput
+                style={{
+                  marginTop: 3,
+                  padding: 12,
+                  height: 40,
+                  backgroundColor: '#5f5f5f',
+                  borderColor: 'white',
+                  color: 'white',
+                }}
+                placeholder="e.g. 7"
+                placeholderTextColor="#d4d4d4"
+                onChangeText={(newFrequencyDays) => this.setState({ newFrequencyDays })}
+              />
+            </View>
+          </View>
         </View>
       );
     }
