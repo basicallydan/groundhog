@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View } from 'react-native';
+import { AppRegistry, AsyncStorage, Text, View, TouchableOpacity } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
+import styles from './src/styles';
 
 function daysAgo(days) {
   const d = new Date();
@@ -13,53 +14,88 @@ class GroundhogView extends Component {
   // Initialize the hardcoded data
   constructor(props) {
     super(props);
-    const activities = [
-      {
-        // 7 days ago
-        id: 1,
-        title: 'Water the peace lily',
-        lastAction: daysAgo(7.5),
-        // Hours
-        frequencyHours: 8 * 24,
-      },
-      {
-        // 9 days ago
-        id: 2,
-        title: 'Deep-clean the bathroom',
-        lastAction: daysAgo(13),
-        // Hours
-        frequencyHours: 14 * 24,
-      },
-      {
-        // 0 days ago
-        id: 3,
-        title: 'Shave',
-        lastAction: daysAgo(0),
-        // Hours
-        frequencyHours: 3 * 24,
-      },
-      {
-        // 11 days ago
-        id: 4,
-        title: 'Clean shoes',
-        lastAction: daysAgo(11),
-        // Hours
-        frequencyHours: 14 * 24,
-      },
-      {
-        // 0.5 days ago
-        id: 5,
-        title: 'Call mum',
-        lastAction: daysAgo(0.5),
-        // Hours
-        frequencyHours: 7 * 24,
-      },
-    ];
+    // const activities = [
+    //   {
+    //     // 7 days ago
+    //     id: 1,
+    //     title: 'Water the peace lily',
+    //     lastAction: daysAgo(7.5),
+    //     // Hours
+    //     frequencyHours: 8 * 24,
+    //   },
+    //   {
+    //     // 9 days ago
+    //     id: 2,
+    //     title: 'Deep-clean the bathroom',
+    //     lastAction: daysAgo(13),
+    //     // Hours
+    //     frequencyHours: 14 * 24,
+    //   },
+    //   {
+    //     // 0 days ago
+    //     id: 3,
+    //     title: 'Shave',
+    //     lastAction: daysAgo(0),
+    //     // Hours
+    //     frequencyHours: 3 * 24,
+    //   },
+    //   {
+    //     // 11 days ago
+    //     id: 4,
+    //     title: 'Clean shoes',
+    //     lastAction: daysAgo(11),
+    //     // Hours
+    //     frequencyHours: 14 * 24,
+    //   },
+    //   {
+    //     // 0.5 days ago
+    //     id: 5,
+    //     title: 'Call mum',
+    //     lastAction: daysAgo(0.5),
+    //     // Hours
+    //     frequencyHours: 7 * 24,
+    //   },
+    // ];
+
+    const activities = [];
 
     this.state = {
-      activities,
+      activities: activities || [],
       currentView: 'listView',
     };
+  }
+
+  componentWillMount() {
+    this.getActivities()
+      .then(activities => {
+        this.setState({
+          activities: activities || [],
+        });
+      });
+  }
+
+  async getActivities() {
+    return AsyncStorage.getItem('@groundhog:activities')
+      .then(activities => (JSON.parse(activities) || [])
+          .map(({ id, title, lastAction, frequencyHours }) => {
+            const activity = {
+              id,
+              title,
+              lastAction: new Date(lastAction),
+              frequencyHours,
+            };
+            return activity;
+          })
+      );
+  }
+
+  async saveActivities(activities) {
+    return AsyncStorage.setItem('@groundhog:activities', JSON.stringify(activities))
+      .then(() => {
+        this.setState({
+          activities,
+        });
+      });
   }
 
   handleIncrement(id) {
@@ -90,6 +126,7 @@ class GroundhogView extends Component {
         activities,
         currentView: 'listView',
       });
+      this.saveActivities(activities);
     };
 
     const goToFormView = () => {
@@ -98,16 +135,19 @@ class GroundhogView extends Component {
       });
     };
 
+    const reset = async () => this.saveActivities([]);
+
     if (this.state.currentView === 'listView') {
       view = (
         <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement}>
-          <Text onPress={goToFormView}>Add</Text>
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToFormView}>Add</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={reset}>Reset</Text></TouchableOpacity>
         </ActivityListView>
       );
     } else {
       view = (
         <View>
-          <Text onPress={goToListView}>Save</Text>
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToListView}>Save</Text></TouchableOpacity>
         </View>
       );
     }

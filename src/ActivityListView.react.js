@@ -25,8 +25,11 @@ class ActivityListView extends Component {
   render() {
     return (
       <View>
-        <View style={{ height: 30 }}>{this.props.children}</View>
+        <View style={{ flexDirection: 'row' }}>
+          {this.props.children}
+        </View>
         <ListView
+          enableEmptySections
           dataSource={this.state.dataSource}
           renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
         />

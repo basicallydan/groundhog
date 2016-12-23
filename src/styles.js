@@ -32,6 +32,12 @@ const titleShared = {
 };
 
 export default StyleSheet.create({
+  // Toolbar
+  toolbarItem: {
+    padding: 12,
+    color: 'white'
+  },
+  // Activity List
   roundButton: roundButtonShared,
   centeredText12: {
     fontSize: 12,
