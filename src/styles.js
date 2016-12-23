@@ -35,7 +35,7 @@ export default StyleSheet.create({
   // Toolbar
   toolbarItem: {
     padding: 12,
-    color: 'white'
+    color: 'white',
   },
   // Activity List
   roundButton: roundButtonShared,

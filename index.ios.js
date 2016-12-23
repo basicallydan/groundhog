@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, AsyncStorage, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, AsyncStorage, Text, TextInput, View, Slider, TouchableOpacity } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import styles from './src/styles';
@@ -62,6 +62,8 @@ class GroundhogView extends Component {
     this.state = {
       activities: activities || [],
       currentView: 'formView',
+      newFrequencyDays: 7,
+      debugNewDaysAgo: 0,
     };
   }
 
@@ -116,10 +118,16 @@ class GroundhogView extends Component {
 
     const goToListView = () => {
       const activities = this.state.activities.slice();
+      let newLastAction;
+      if (this.state.debugNewDaysAgo) {
+        newLastAction = daysAgo(this.state.debugNewDaysAgo);
+      } else {
+        newLastAction = new Date();
+      }
       activities.push({
         id: activities.reduce((nextId, activity) => Math.max(nextId, activity.id + 1), 1),
         title: this.state.newTitle,
-        lastAction: new Date(),
+        lastAction: newLastAction,
         frequencyHours: (+this.state.newFrequencyDays) * 24,
       });
       this.setState({
@@ -137,6 +145,16 @@ class GroundhogView extends Component {
 
     const reset = async () => this.saveActivities([]);
 
+    const debugDayAgo = () => {
+      let debugNewDaysAgo = this.state.debugNewDaysAgo;
+      if (!debugNewDaysAgo) debugNewDaysAgo = 1;
+      else if (debugNewDaysAgo === 15) debugNewDaysAgo = 0;
+      else debugNewDaysAgo += 1;
+      this.setState({
+        debugNewDaysAgo,
+      });
+    };
+
     if (this.state.currentView === 'listView') {
       view = (
         <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement}>
@@ -147,7 +165,7 @@ class GroundhogView extends Component {
     } else {
       view = (
         <View>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToListView}>Save</Text></TouchableOpacity>
+          <TouchableOpacity onPress={goToListView} disabled={!this.state.newTitle}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
           <View>
             <View style={{ marginBottom: 12 }}>
               <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Activity title</Text>
@@ -157,7 +175,6 @@ class GroundhogView extends Component {
                   padding: 12,
                   height: 40,
                   backgroundColor: '#5f5f5f',
-                  borderColor: 'white',
                   color: 'white',
                 }}
                 placeholder="e.g. Water plants, wash curtains, vaccum"
@@ -165,21 +182,36 @@ class GroundhogView extends Component {
                 onChangeText={(newTitle) => this.setState({ newTitle })}
               />
             </View>
-            <View style={{ marginBottom: 12 }}>
+            <View style={{ marginBottom: 12, justifyContent: 'center' }}>
               <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Frequency</Text>
-              <TextInput
+              <View
                 style={{
                   marginTop: 3,
-                  padding: 12,
+                  paddingLeft: 12,
+                  paddingRight: 12,
                   height: 40,
                   backgroundColor: '#5f5f5f',
-                  borderColor: 'white',
-                  color: 'white',
+                  flexGrow: 1,
+                  flexDirection: 'row',
                 }}
-                placeholder="e.g. 7"
-                placeholderTextColor="#d4d4d4"
-                onChangeText={(newFrequencyDays) => this.setState({ newFrequencyDays })}
-              />
+              >
+                <Slider
+                  style={{ flexGrow: 1 }}
+                  minimumTrackTintColor={'white'}
+                  maximumTrackTintColor={'white'}
+                  step={1}
+                  minimumValue={1}
+                  value={this.state.newFrequencyDays}
+                  maximumValue={14}
+                  onValueChange={(newFrequencyDays) => this.setState({ newFrequencyDays })}
+                />
+                <Text style={[styles.centeredText25, styles.fontWhite, { width: 40, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays}</Text>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12, justifyContent: 'center' }}>
+              <TouchableOpacity onPress={debugDayAgo}>
+                <Text style={[styles.fontWhite, { paddingLeft: 12 }]}>(Debug) days ago (max 15): {this.state.debugNewDaysAgo}</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
