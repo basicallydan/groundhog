@@ -26,16 +26,32 @@ const roundButtonShared = {
   justifyContent: 'center',
   overflow: 'hidden',
 };
-const roundButtonInnerShared = {
-  fontSize: 25,
-  lineHeight: 25,
-};
 const titleShared = {
   flex: 1,
   padding: 10,
 };
 
 export default StyleSheet.create({
+  roundButton: roundButtonShared,
+  centeredText12: {
+    fontSize: 12,
+    lineHeight: 12,
+  },
+  centeredText25: {
+    fontSize: 25,
+    lineHeight: 26,
+  },
+  frequencyText: {
+    width: 30,
+    height: 30,
+    color: 'white',
+    lineHeight: 30,
+    textAlign: 'center',
+  },
+  fontWhite: {
+    color: 'white',
+  },
+
   urgentBackgroundColor: {
     backgroundColor: darkRed,
   },
@@ -45,12 +61,8 @@ export default StyleSheet.create({
   urgentRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkRed,
   }),
-  urgentRoundButtonInner: Object.assign({}, roundButtonInnerShared, {
+  urgentRoundButtonInner: Object.assign({}, {
     color: 'white',
-  }),
-  urgentRoundButtonInnerSmall: Object.assign({}, roundButtonInnerShared, {
-    color: 'white',
-    fontSize: 12,
   }),
   urgentTitle: Object.assign({}, titleShared),
 
@@ -63,12 +75,8 @@ export default StyleSheet.create({
   soonRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkOrange,
   }),
-  soonRoundButtonInner: Object.assign({}, roundButtonInnerShared, {
+  soonRoundButtonInner: Object.assign({}, {
     color: 'white',
-  }),
-  soonRoundButtonInnerSmall: Object.assign({}, roundButtonInnerShared, {
-    color: 'white',
-    fontSize: 12,
   }),
   soonTitle: Object.assign({}, titleShared),
 
@@ -81,12 +89,8 @@ export default StyleSheet.create({
   recentRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkGreen,
   }),
-  recentRoundButtonInner: Object.assign({}, roundButtonInnerShared, {
+  recentRoundButtonInner: Object.assign({}, {
     color: 'white',
-  }),
-  recentRoundButtonInnerSmall: Object.assign({}, roundButtonInnerShared, {
-    color: 'white',
-    fontSize: 12,
   }),
   recentTitle: Object.assign({}, titleShared),
 });

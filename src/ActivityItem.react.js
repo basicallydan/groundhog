@@ -41,7 +41,6 @@ class ActivityItem extends Component {
     const itemStyle = `${urgency}Item`;
     const plusButtonStyle = `${urgency}RoundButton`;
     const innerPlusButtonStyle = `${urgency}RoundButtonInner`;
-    const innerPlusButtonSmallStyle = `${urgency}RoundButtonInnerSmall`;
     const titleStyle = `${urgency}Title`;
 
     const onPress = () => {
@@ -61,7 +60,7 @@ class ActivityItem extends Component {
     return (
       <View style={styles[itemStyle]}>
         <TouchableHighlight style={styles[plusButtonStyle]} onPress={onPress}>
-          <Text style={styles[innerPlusButtonStyle]}>+</Text>
+          <Text style={[styles[innerPlusButtonStyle], styles.centeredText25]}>+</Text>
         </TouchableHighlight>
         <View style={styles[titleStyle]}>
           <Text style={{ flex: 0, fontWeight: 'bold', color: 'white' }}>
@@ -71,12 +70,10 @@ class ActivityItem extends Component {
             {lastActionString}
           </Text>
         </View>
-        <View style={[styles[plusButtonStyle], { backgroundColor: 'transparent' }]}>
-          <View style={[styles[innerPlusButtonSmallStyle], { alignItems: 'center', justifyContent: 'center' }]}>
-            <View style={[styles[mainBgColor], { width: 30, height: heightOfBubble, bottom: 0, left: 0, position: 'absolute' }]} />
-            <View style={{ width: 30, height: 30, top: 0, left: 0 }}>
-              <Text style={{ color: 'white', width: 30, height: 30, lineHeight: 30, textAlign: 'center' }}>{frequencyDays}</Text>
-            </View>
+        <View style={[styles.roundButton, { backgroundColor: 'transparent' }]}>
+          <View style={[styles[mainBgColor], { width: 30, height: heightOfBubble, bottom: 0, left: 0, position: 'absolute' }]} />
+          <View style={[{ width: 30, height: 30, top: 0, left: 0 }]}>
+            <Text style={styles.frequencyText}>{frequencyDays}</Text>
           </View>
         </View>
       </View>
