@@ -15,7 +15,7 @@ const itemContainerShared = {
   padding: 2,
   paddingLeft: 12,
   paddingRight: 12,
-  alignItems: 'center'
+  alignItems: 'center',
 };
 const roundButtonShared = {
   borderRadius: 15,
