@@ -34,7 +34,7 @@ class ActivityListView extends Component {
 
 ActivityListView.propTypes = {
   activities: React.PropTypes.array,
-  handleIncrement: React.PropTypes.function,
+  handleIncrement: React.PropTypes.func,
 };
 
 export default ActivityListView;

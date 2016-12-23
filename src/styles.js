@@ -21,9 +21,9 @@ const roundButtonShared = {
   borderRadius: 15,
   width: 30,
   height: 30,
-  flexDirection:'row', 
-  alignItems:'center', 
-  justifyContent:'center',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
   overflow: 'hidden',
 };
 const roundButtonInnerShared = {

@@ -86,7 +86,7 @@ class ActivityItem extends Component {
 
 ActivityItem.propTypes = {
   activity: React.PropTypes.object,
-  onPress: React.PropTypes.function,
+  onPress: React.PropTypes.func,
 };
 
 export default ActivityItem;
