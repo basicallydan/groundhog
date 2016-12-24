@@ -37,16 +37,26 @@ export default StyleSheet.create({
     padding: 12,
     color: 'white',
   },
+  marginStandard: {
+    margin: 12,
+  },
   // Activity List
   roundButton: roundButtonShared,
   centeredText12: {
     fontSize: 12,
     lineHeight: 12,
   },
+  centeredText20: {
+    fontSize: 20,
+    lineHeight: 20,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
   centeredText25: {
     fontSize: 25,
     lineHeight: 26,
     justifyContent: 'center',
+    textAlign: 'center',
   },
   centeredText40: {
     fontSize: 40,

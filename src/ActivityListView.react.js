@@ -55,9 +55,9 @@ class ActivityListView extends Component {
       />);
     } else {
       mainView = (<View>
-        <Text style={[styles.centeredText40, styles.fontWhite]}>¯\_(ツ)_/¯</Text>
-        <Text style={[styles.centeredText25, styles.fontWhite]}>You don't have any activities yet.</Text>
-        <Text onPress={this.props.onSample} style={[styles.centeredText25, styles.fontWhite]}>Tap here to create a sample activity.</Text>
+        <Text style={[styles.marginStandard, styles.centeredText20, styles.fontWhite]}>You don't have any activities yet.</Text>
+        <Text style={[styles.marginStandard, styles.centeredText40, styles.fontWhite]}>¯\_(ツ)_/¯</Text>
+        <Text onPress={this.props.onSample} style={[styles.marginStandard, styles.centeredText20, styles.fontWhite]}>Tap here to create a sample activity.</Text>
       </View>);
     }
 
