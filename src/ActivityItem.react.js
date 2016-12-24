@@ -36,7 +36,7 @@ class ActivityItem extends Component {
     let lastActionString = `${hoursSince} hours ago`;
 
     if (hoursSince >= 24) {
-      const days = hoursSince / 24;
+      const days = Math.round(hoursSince / 24);
       lastActionString = `${days} days ago`;
     }
 
