@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { AppRegistry, AsyncStorage, Text, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, Text, View, TouchableOpacity } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import ActivityFormView from './src/ActivityFormView.react';
 import styles from './src/styles';
 import daysAgo from './src/utils/daysAgo';
+import { saveActivities, getActivities } from './src/storage';
 
 class GroundhogView extends Component {
   // Initialize the hardcoded data
@@ -22,34 +23,10 @@ class GroundhogView extends Component {
   }
 
   componentWillMount() {
-    this.getActivities()
+    getActivities()
       .then(activities => {
         this.setState({
           activities: activities || [],
-        });
-      });
-  }
-
-  async getActivities() {
-    return AsyncStorage.getItem('@groundhog:activities')
-      .then(activities => (JSON.parse(activities) || [])
-          .map(({ id, title, lastAction, frequencyHours }) => {
-            const activity = {
-              id,
-              title,
-              lastAction: new Date(lastAction),
-              frequencyHours,
-            };
-            return activity;
-          })
-      );
-  }
-
-  async saveActivities(activities) {
-    return AsyncStorage.setItem('@groundhog:activities', JSON.stringify(activities))
-      .then(() => {
-        this.setState({
-          activities,
         });
       });
   }
@@ -88,7 +65,8 @@ class GroundhogView extends Component {
         activities,
         currentView: 'listView',
       });
-      this.saveActivities(activities);
+      saveActivities(activities)
+        .then(() => this.setState({ activities }));
     };
 
     const goToFormView = () => {
@@ -97,7 +75,7 @@ class GroundhogView extends Component {
       });
     };
 
-    const reset = async () => this.saveActivities([]);
+    const reset = async () => saveActivities([]).then(() => this.setState({ activities: [] }));
 
     if (this.state.currentView === 'listView') {
       view = (
