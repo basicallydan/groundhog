@@ -70,6 +70,17 @@ class GroundhogView extends Component {
 
     const goToFormView = () => {
       this.setState({
+        sampleActivity: undefined,
+        currentView: 'formView',
+      });
+    };
+
+    const goToSampleForm = () => {
+      this.setState({
+        sampleActivity: {
+          title: 'Water plants',
+          frequencyHours: 7 * 24,
+        },
         currentView: 'formView',
       });
     };
@@ -78,14 +89,14 @@ class GroundhogView extends Component {
 
     if (this.state.currentView === 'listView') {
       view = (
-        <ActivityListView activities={this.state.activities} handleIncrement={handleIncrement}>
+        <ActivityListView onSample={goToSampleForm} activities={this.state.activities} handleIncrement={handleIncrement}>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToFormView}>Add</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={reset}>Reset</Text></TouchableOpacity>
         </ActivityListView>
       );
     } else {
       view = (
-        <ActivityFormView onSave={goToListView} />
+        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={goToListView} />
       );
     }
 

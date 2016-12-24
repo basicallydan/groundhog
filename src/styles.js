@@ -46,6 +46,13 @@ export default StyleSheet.create({
   centeredText25: {
     fontSize: 25,
     lineHeight: 26,
+    justifyContent: 'center',
+  },
+  centeredText40: {
+    fontSize: 40,
+    lineHeight: 40,
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   frequencyText: {
     width: 30,

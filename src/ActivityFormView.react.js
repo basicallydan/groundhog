@@ -6,9 +6,18 @@ import styles from './styles';
 class ActivityFormView extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+
+    this.state = Object.assign({}, {
+      newTitle: '',
       newFrequencyDays: 7,
-    };
+    });
+
+    if (this.props.sampleActivity) {
+      this.setState({
+        newTitle: this.props.sampleActivity.title,
+        newFrequencyDays: this.props.sampleActivity.frequencyHours / 24,
+      });
+    }
   }
 
   handleSave = () => {
@@ -47,6 +56,7 @@ class ActivityFormView extends Component {
                 backgroundColor: '#5f5f5f',
                 color: 'white',
               }}
+              value={this.state.newTitle}
               placeholder="e.g. Water plants, wash curtains, vaccum"
               placeholderTextColor="#d4d4d4"
               onChangeText={(newTitle) => this.setState({ newTitle })}
@@ -91,6 +101,7 @@ class ActivityFormView extends Component {
 
 ActivityFormView.propTypes = {
   onSave: React.PropTypes.func.isRequired,
+  sampleActivity: React.PropTypes.object,
 };
 
 export default ActivityFormView;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ListView, View } from 'react-native';
+import { ListView, View, Text } from 'react-native';
 
 import ActivityItem from './ActivityItem.react';
+import styles from './styles';
 
 function orderActivities(activities) {
   if (activities.length < 1) {
@@ -44,16 +45,28 @@ class ActivityListView extends Component {
   }
 
   render() {
+    let mainView;
+
+    if (this.state.dataSource.getSectionLengths()[0] > 0) {
+      mainView = (<ListView
+        enableEmptySections
+        dataSource={this.state.dataSource}
+        renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
+      />);
+    } else {
+      mainView = (<View>
+        <Text style={[styles.centeredText40, styles.fontWhite]}>¯\_(ツ)_/¯</Text>
+        <Text style={[styles.centeredText25, styles.fontWhite]}>You don't have any activities yet.</Text>
+        <Text onPress={this.props.onSample} style={[styles.centeredText25, styles.fontWhite]}>Tap here to create a sample activity.</Text>
+      </View>);
+    }
+
     return (
       <View>
         <View style={{ flexDirection: 'row' }}>
           {this.props.children}
         </View>
-        <ListView
-          enableEmptySections
-          dataSource={this.state.dataSource}
-          renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
-        />
+        {mainView}
       </View>
     );
   }
@@ -63,6 +76,7 @@ ActivityListView.propTypes = {
   activities: React.PropTypes.array,
   children: React.PropTypes.node,
   handleIncrement: React.PropTypes.func,
+  onSample: React.PropTypes.func,
 };
 
 export default ActivityListView;
