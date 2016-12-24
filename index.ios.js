@@ -16,7 +16,7 @@ class GroundhogView extends Component {
 
     this.state = {
       activities: activities || [],
-      currentView: 'formView',
+      currentView: 'listView',
       newFrequencyDays: 7,
       debugNewDaysAgo: 0,
     };
@@ -38,9 +38,8 @@ class GroundhogView extends Component {
     activities[foundIndex] = Object.assign({}, activities[foundIndex], {
       lastAction: new Date(),
     });
-    this.setState({
-      activities,
-    });
+    saveActivities(activities)
+      .then(() => this.setState({ activities }));
   }
 
   render() {
