@@ -72,7 +72,7 @@ class ActivityListView extends Component {
 
     return (
       <View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           {this.props.children}
         </View>
         {mainView}
