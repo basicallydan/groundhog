@@ -5,7 +5,7 @@ import ActivityListView from './src/ActivityListView.react';
 import ActivityFormView from './src/ActivityFormView.react';
 import styles from './src/styles';
 import daysAgo from './src/utils/daysAgo';
-import { saveActivities, getActivities } from './src/storage';
+import { saveActivities, getActivities, clearActions, getActions, saveAction } from './src/storage';
 
 class GroundhogView extends Component {
   // Initialize the hardcoded data
@@ -29,15 +29,22 @@ class GroundhogView extends Component {
           activities: activities || [],
         });
       });
+    getActions()
+      .then(actions => {
+        console.log('Existing actions:');
+        console.log(actions);
+      });
   }
 
   handleIncrement(id) {
     let activities = [];
     activities = this.state.activities.slice();
     const foundIndex = activities.findIndex(x => x.id === id);
+    const lastAction = new Date();
     activities[foundIndex] = Object.assign({}, activities[foundIndex], {
-      lastAction: new Date(),
+      lastAction,
     });
+    saveAction(id, lastAction);
     saveActivities(activities)
       .then(() => this.setState({ activities }));
   }
@@ -85,7 +92,10 @@ class GroundhogView extends Component {
       });
     };
 
-    const reset = async () => saveActivities([]).then(() => this.setState({ activities: [] }));
+    const reset = async () => {
+      clearActions();
+      return saveActivities([]).then(() => this.setState({ activities: [] }));
+    };
 
     if (this.state.currentView === 'listView') {
       view = (

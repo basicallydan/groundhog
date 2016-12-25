@@ -18,3 +18,18 @@ export async function getActivities() {
 export async function saveActivities(activities) {
   return AsyncStorage.setItem('@groundhog:activities', JSON.stringify(activities));
 }
+
+export async function getActions() {
+  return AsyncStorage.getItem('@groundhog:actions')
+    .then(activities => (JSON.parse(activities) || []));
+}
+
+export async function saveAction(id, date) {
+  const actions = await getActions();
+  actions.push({ id, date });
+  return AsyncStorage.setItem('@groundhog:actions', JSON.stringify(actions));
+}
+
+export async function clearActions() {
+  return AsyncStorage.setItem('@groundhog:actions', JSON.stringify([]));
+}
