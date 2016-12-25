@@ -42,12 +42,12 @@ class ActivityFormView extends Component {
 
     return (
       <View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
           <TouchableOpacity onPress={this.handleSave} disabled={!this.state.newTitle}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
         </View>
         <View>
           <View style={{ marginBottom: 12 }}>
-            <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Activity title</Text>
+            <Text style={{ marginLeft: 12, fontSize: 12, color: 'white', height: 16 }}>Activity title</Text>
             <TextInput
               style={{
                 marginTop: 3,
@@ -63,7 +63,7 @@ class ActivityFormView extends Component {
             />
           </View>
           <View style={{ marginBottom: 12, justifyContent: 'center' }}>
-            <Text style={{ marginLeft: 12, fontSize: 10, color: 'white', height: 15 }}>Frequency</Text>
+            <Text style={{ marginLeft: 12, fontSize: 12, color: 'white', height: 16 }}>Frequency</Text>
             <View
               style={{
                 marginTop: 3,
@@ -82,10 +82,10 @@ class ActivityFormView extends Component {
                 step={1}
                 minimumValue={1}
                 value={this.state.newFrequencyDays}
-                maximumValue={14}
+                maximumValue={30}
                 onValueChange={(newFrequencyDays) => this.setState({ newFrequencyDays })}
               />
-              <Text style={[styles.centeredText25, styles.fontWhite, { width: 40, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays}</Text>
+              <Text style={[styles.centeredText25, styles.fontWhite, { width: 100, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
             </View>
           </View>
           <View style={{ marginBottom: 12, justifyContent: 'center' }}>

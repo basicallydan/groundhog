@@ -61,14 +61,6 @@ class ActivityListView extends Component {
         <EmptyActivityItem onPress={this.props.onSample} />
       </View>);
     }
-    /*
-      mainView = (<View>
-        <Text style={[styles.marginStandard, styles.centeredText20, styles.fontWhite]}>You don't have any activities yet.</Text>
-        <Text style={[styles.marginStandard, styles.centeredText40, styles.fontWhite]}>¯\_(ツ)_/¯</Text>
-        <Text onPress={this.props.onSample} style={[styles.marginStandard, styles.centeredText20, styles.fontWhite]}>Tap here to create a sample activity.</Text>
-      </View>);
-    }
-    */
 
     return (
       <View>
