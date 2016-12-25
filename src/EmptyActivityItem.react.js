@@ -7,9 +7,9 @@ function EmptyActivityItem(props) {
   return (
     <TouchableHighlight onPress={props.onPress}>
       <View style={[styles.itemContainer]}>
-        <TouchableHighlight style={styles.roundButton}>
+        <View style={styles.roundButton}>
           <Text style={[styles.urgentRoundButtonInner, styles.centeredText25]}>+</Text>
-        </TouchableHighlight>
+        </View>
         <View style={styles.itemTitle}>
           <Text style={{ fontWeight: 'bold', color: 'white' }}>
             You haven't added any activities
