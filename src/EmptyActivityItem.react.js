@@ -12,7 +12,7 @@ function EmptyActivityItem(props) {
         </View>
         <View style={styles.itemTitle}>
           <Text style={{ fontWeight: 'bold', color: 'white' }}>
-            You haven't added any activities
+            You don't have any activities yet
           </Text>
           <Text style={{ color: 'white' }}>
             Tap here to add a sample activity
