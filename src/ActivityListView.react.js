@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { ListView, View, Text } from 'react-native';
+import { ListView, View } from 'react-native';
 
 import ActivityItem from './ActivityItem.react';
 import EmptyActivityItem from './EmptyActivityItem.react';
-import styles from './styles';
 
 function orderActivities(activities) {
   if (activities.length < 1) {
