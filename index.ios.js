@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import ActivityFormView from './src/ActivityFormView.react';
@@ -16,7 +16,7 @@ class GroundhogView extends Component {
 
     this.state = {
       activities: activities || [],
-      currentView: 'formView',
+      currentView: 'listView',
       newFrequencyDays: 7,
       debugNewDaysAgo: 0,
     };
@@ -34,6 +34,8 @@ class GroundhogView extends Component {
         console.log('Existing actions:');
         console.log(actions);
       });
+
+    StatusBar.setBarStyle('light-content', true);
   }
 
   handleIncrement(id) {
