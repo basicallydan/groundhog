@@ -10,12 +10,12 @@ const green = '#417505';
 const darkGreen = '#305603';
 
 const itemContainerShared = {
-  flex: 1,
   flexDirection: 'row',
   padding: 2,
   paddingLeft: 12,
   paddingRight: 12,
   alignItems: 'center',
+  justifyContent: 'space-between',
 };
 const roundButtonShared = {
   borderRadius: 15,
@@ -25,6 +25,7 @@ const roundButtonShared = {
   alignItems: 'center',
   justifyContent: 'center',
   overflow: 'hidden',
+  backgroundColor: '#5f5f5f',
 };
 const titleShared = {
   flex: 1,
@@ -41,7 +42,9 @@ export default StyleSheet.create({
     margin: 12,
   },
   // Activity List
+  itemContainer: itemContainerShared,
   roundButton: roundButtonShared,
+  itemTitle: titleShared,
   centeredText12: {
     fontSize: 12,
     lineHeight: 12,

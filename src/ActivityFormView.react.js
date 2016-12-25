@@ -7,16 +7,16 @@ class ActivityFormView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({}, {
-      newTitle: '',
-      newFrequencyDays: 7,
-    });
-
     if (this.props.sampleActivity) {
-      this.setState({
+      this.state = {
         newTitle: this.props.sampleActivity.title,
         newFrequencyDays: this.props.sampleActivity.frequencyHours / 24,
-      });
+      };
+    } else {
+      this.state = {
+        newTitle: '',
+        newFrequencyDays: 7,
+      };
     }
   }
 
