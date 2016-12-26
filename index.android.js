@@ -34,6 +34,8 @@ class GroundhogView extends Component {
         console.log('Existing actions:');
         console.log(actions);
       });
+
+    StatusBar.setBackgroundColor('#303030');
   }
 
   handleIncrement(id) {
