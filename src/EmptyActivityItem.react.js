@@ -4,11 +4,17 @@ import { Text, View, TouchableHighlight } from 'react-native';
 import styles from './styles';
 
 function EmptyActivityItem(props) {
+  const addButtonInnerStyles = [styles.roundButtonInner, styles.fontWhite, styles.centeredText25];
+
+  if (props.android) {
+    addButtonInnerStyles.push({ top: -2 });
+  }
+
   return (
     <TouchableHighlight onPress={props.onPress}>
       <View style={[styles.itemContainer]}>
         <View style={styles.roundButton}>
-          <Text style={[styles.urgentRoundButtonInner, styles.centeredText25, styles.roundButtonInner, { lineHeight: 44 }]}>+</Text>
+          <Text style={addButtonInnerStyles}>+</Text>
         </View>
         <View style={styles.itemTitle}>
           <Text style={{ fontWeight: 'bold', color: 'white' }}>
@@ -25,6 +31,7 @@ function EmptyActivityItem(props) {
 
 EmptyActivityItem.propTypes = {
   onPress: React.PropTypes.func.isRequired,
+  android: React.PropTypes.bool,
 };
 
 export default EmptyActivityItem;

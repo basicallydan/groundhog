@@ -26,9 +26,8 @@ class ActivityItem extends Component {
     const mainBgColor = `${urgency}BackgroundColor`;
     const itemStyle = `${urgency}Item`;
     const plusButtonStyle = `${urgency}RoundButton`;
-    const innerPlusButtonStyle = `${urgency}RoundButtonInner`;
     const titleStyle = `${urgency}Title`;
-    const maskName = './img/soon-round-mask-40.png';
+    // const maskName = './img/soon-round-mask-40.png';
 
     const onPress = () => {
       this.props.onPress(id);
@@ -44,10 +43,18 @@ class ActivityItem extends Component {
     const maxHeightOfBubble = roundButtonWidth;
     const heightOfBubble = maxHeightOfBubble - (maxHeightOfBubble * (hoursUntil / frequencyHours));
 
+    const addButtonInnerStyles = [styles.roundButtonInner, styles.fontWhite, styles.centeredText25];
+    const frequencyTextContainerStyles = [styles.roundButtonInner, styles.fontWhite, styles.centeredText16];
+
+    if (this.props.android) {
+      addButtonInnerStyles.push({ top: -2 });
+      frequencyTextContainerStyles.push({ top: -2 });
+    }
+
     return (
       <View style={styles[itemStyle]}>
-        <TouchableHighlight style={styles[plusButtonStyle]} onPress={onPress}>
-          <Text style={[styles[innerPlusButtonStyle], styles.centeredText25]}>+</Text>
+        <TouchableHighlight style={[styles[plusButtonStyle]]} onPress={onPress}>
+          <Text style={addButtonInnerStyles}>+</Text>
         </TouchableHighlight>
         <View style={styles[titleStyle]}>
           <Text style={{ flex: 0, fontWeight: 'bold', color: 'white' }}>
@@ -62,10 +69,8 @@ class ActivityItem extends Component {
             style={{ position: 'absolute', zIndex: 100 }}
             source={require('./img/recent-round-mask-40.png')}
           />
-          <View style={[styles[mainBgColor], styles.roundButtonInner, { height: heightOfBubble }]} />
-          <View style={[{ width: roundButtonWidth, height: roundButtonWidth, top: 0, left: 0 }]}>
-            <Text style={styles.frequencyText}>{frequencyDays}</Text>
-          </View>
+          <View style={[styles.roundButtonInnerVariableHeight, styles[mainBgColor], { height: heightOfBubble }]} />
+          <Text style={[frequencyTextContainerStyles]}>{frequencyDays}</Text>
         </View>
       </View>
     );
@@ -75,6 +80,7 @@ class ActivityItem extends Component {
 ActivityItem.propTypes = {
   activity: React.PropTypes.object,
   onPress: React.PropTypes.func,
+  android: React.PropTypes.bool,
 };
 
 export default ActivityItem;

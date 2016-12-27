@@ -34,9 +34,6 @@ const roundButtonShared = {
 };
 const roundButtonInnerShared = {
   width: roundButtonWidth,
-  bottom: 0,
-  left: 0,
-  position: 'absolute',
 };
 const titleShared = {
   flex: 1,
@@ -56,10 +53,22 @@ export default StyleSheet.create({
   itemContainer: itemContainerShared,
   roundButton: roundButtonShared,
   roundButtonInner: roundButtonInnerShared,
+  roundButtonInnerVariableHeight: {
+    width: roundButtonWidth,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
   itemTitle: titleShared,
   centeredText12: {
     fontSize: 12,
     lineHeight: 12,
+  },
+  centeredText16: {
+    fontSize: 16,
+    lineHeight: 16,
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   centeredText20: {
     fontSize: 20,
@@ -99,9 +108,6 @@ export default StyleSheet.create({
   urgentRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkRed,
   }),
-  urgentRoundButtonInner: Object.assign({}, {
-    color: 'white',
-  }),
   urgentTitle: Object.assign({}, titleShared),
 
   soonBackgroundColor: {
@@ -113,9 +119,6 @@ export default StyleSheet.create({
   soonRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkOrange,
   }),
-  soonRoundButtonInner: Object.assign({}, {
-    color: 'white',
-  }),
   soonTitle: Object.assign({}, titleShared),
 
   recentBackgroundColor: {
@@ -126,9 +129,6 @@ export default StyleSheet.create({
   }),
   recentRoundButton: Object.assign({}, roundButtonShared, {
     backgroundColor: darkGreen,
-  }),
-  recentRoundButtonInner: Object.assign({}, {
-    color: 'white',
   }),
   recentTitle: Object.assign({}, titleShared),
 });

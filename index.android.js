@@ -35,7 +35,7 @@ class GroundhogView extends Component {
         console.log(actions);
       });
 
-    StatusBar.setBackgroundColor('#303030');
+    StatusBar.setBarStyle('light-content', true);
   }
 
   handleIncrement(id) {
@@ -101,7 +101,7 @@ class GroundhogView extends Component {
 
     if (this.state.currentView === 'listView') {
       view = (
-        <ActivityListView onSample={goToSampleForm} activities={this.state.activities} handleIncrement={handleIncrement}>
+        <ActivityListView onSample={goToSampleForm} activities={this.state.activities} handleIncrement={handleIncrement} android={true}>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToFormView}>Add</Text></TouchableOpacity>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={reset}>Reset</Text></TouchableOpacity>
         </ActivityListView>
@@ -113,7 +113,7 @@ class GroundhogView extends Component {
     }
 
     return (
-      <View style={{ flex: 1, backgroundColor: '#303030' }}>
+      <View style={{ flex: 1, paddingTop: 22, backgroundColor: '#303030' }}>
         {view}
       </View>
     );

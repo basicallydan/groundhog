@@ -52,12 +52,12 @@ class ActivityListView extends Component {
         <ListView
           enableEmptySections
           dataSource={this.state.dataSource}
-          renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} />}
+          renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} android={this.props.android} />}
         />
       );
     } else {
       mainView = (<View>
-        <EmptyActivityItem onPress={this.props.onSample} />
+        <EmptyActivityItem onPress={this.props.onSample} android={this.props.android} />
       </View>);
     }
 
@@ -77,6 +77,7 @@ ActivityListView.propTypes = {
   children: React.PropTypes.node,
   handleIncrement: React.PropTypes.func,
   onSample: React.PropTypes.func,
+  android: React.PropTypes.bool,
 };
 
 export default ActivityListView;
