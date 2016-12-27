@@ -9,23 +9,34 @@ const darkOrange = '#7F4C00';
 const green = '#417505';
 const darkGreen = '#305603';
 
+export const roundButtonWidth = 40;
+
+const standardMargin = 14;
+
 const itemContainerShared = {
   flexDirection: 'row',
-  padding: 2,
-  paddingLeft: 12,
-  paddingRight: 12,
+  padding: standardMargin / 2,
+  paddingLeft: standardMargin,
+  paddingRight: standardMargin,
   alignItems: 'center',
   justifyContent: 'space-between',
+  marginBottom: 1,
 };
 const roundButtonShared = {
-  borderRadius: 15,
-  width: 30,
-  height: 30,
+  borderRadius: roundButtonWidth / 2,
+  width: roundButtonWidth,
+  height: roundButtonWidth,
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   overflow: 'hidden',
   backgroundColor: '#5f5f5f',
+};
+const roundButtonInnerShared = {
+  width: roundButtonWidth,
+  bottom: 0,
+  left: 0,
+  position: 'absolute',
 };
 const titleShared = {
   flex: 1,
@@ -35,15 +46,16 @@ const titleShared = {
 export default StyleSheet.create({
   // Toolbar
   toolbarItem: {
-    padding: 12,
+    padding: standardMargin,
     color: 'white',
   },
   marginStandard: {
-    margin: 12,
+    margin: standardMargin,
   },
   // Activity List
   itemContainer: itemContainerShared,
   roundButton: roundButtonShared,
+  roundButtonInner: roundButtonInnerShared,
   itemTitle: titleShared,
   centeredText12: {
     fontSize: 12,
@@ -68,10 +80,10 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   frequencyText: {
-    width: 30,
-    height: 30,
+    width: roundButtonWidth,
+    height: roundButtonWidth,
     color: 'white',
-    lineHeight: 30,
+    lineHeight: roundButtonWidth,
     textAlign: 'center',
   },
   fontWhite: {

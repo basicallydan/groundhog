@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 
-import styles from './styles';
+import styles, { roundButtonWidth } from './styles';
 import hoursBetween from './utils/hoursBetween';
 
 class ActivityItem extends Component {
@@ -40,7 +40,7 @@ class ActivityItem extends Component {
       lastActionString = `${days} days ago`;
     }
 
-    const maxHeightOfBubble = 30;
+    const maxHeightOfBubble = roundButtonWidth;
     const heightOfBubble = maxHeightOfBubble - (maxHeightOfBubble * (hoursUntil / frequencyHours));
 
     return (
@@ -57,8 +57,8 @@ class ActivityItem extends Component {
           </Text>
         </View>
         <View style={[styles.roundButton, { backgroundColor: 'transparent' }]}>
-          <View style={[styles[mainBgColor], { width: 30, height: heightOfBubble, bottom: 0, left: 0, position: 'absolute' }]} />
-          <View style={[{ width: 30, height: 30, top: 0, left: 0 }]}>
+          <View style={[styles[mainBgColor], styles.roundButtonInner, { height: heightOfBubble }]} />
+          <View style={[{ width: roundButtonWidth, height: roundButtonWidth, top: 0, left: 0 }]}>
             <Text style={styles.frequencyText}>{frequencyDays}</Text>
           </View>
         </View>
