@@ -113,7 +113,7 @@ class GroundhogView extends Component {
     }
 
     return (
-      <View style={{ flex: 1, paddingTop: 22, backgroundColor: '#303030' }}>
+      <View style={{ flex: 1, backgroundColor: '#303030' }}>
         {view}
       </View>
     );
