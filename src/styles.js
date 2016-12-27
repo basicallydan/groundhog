@@ -11,7 +11,7 @@ const darkGreen = '#305603';
 
 export const roundButtonWidth = 40;
 
-const standardMargin = 14;
+export const standardMargin = 14;
 
 const itemContainerShared = {
   flexDirection: 'row',

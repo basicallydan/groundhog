@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Slider, TouchableOpacity } from 'react-native';
 
-import styles from './styles';
+import styles, { standardMargin } from './styles';
 
 class ActivityFormView extends Component {
   constructor(props) {
@@ -46,12 +46,12 @@ class ActivityFormView extends Component {
           <TouchableOpacity onPress={this.handleSave} disabled={!this.state.newTitle}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
         </View>
         <View>
-          <View style={{ marginBottom: 12 }}>
-            <Text style={{ marginLeft: 12, fontSize: 12, color: 'white', height: 16 }}>Activity title</Text>
+          <View style={{ marginBottom: standardMargin }}>
+            <Text style={{ marginLeft: standardMargin, fontSize: 12, color: 'white', height: 16 }}>Activity title</Text>
             <TextInput
               style={{
                 marginTop: 3,
-                padding: 12,
+                padding: standardMargin,
                 height: 40,
                 backgroundColor: '#5f5f5f',
                 color: 'white',
@@ -62,13 +62,13 @@ class ActivityFormView extends Component {
               onChangeText={(newTitle) => this.setState({ newTitle })}
             />
           </View>
-          <View style={{ marginBottom: 12, justifyContent: 'center' }}>
-            <Text style={{ marginLeft: 12, fontSize: 12, color: 'white', height: 16 }}>Frequency</Text>
+          <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
+            <Text style={{ marginLeft: standardMargin, fontSize: 12, color: 'white', height: 16 }}>Frequency</Text>
             <View
               style={{
-                marginTop: 3,
-                paddingLeft: 12,
-                paddingRight: 12,
+                marginTop: standardMargin / 2,
+                paddingLeft: standardMargin,
+                paddingRight: standardMargin,
                 height: 40,
                 backgroundColor: '#5f5f5f',
                 flexGrow: 1,
@@ -85,12 +85,12 @@ class ActivityFormView extends Component {
                 maximumValue={30}
                 onValueChange={(newFrequencyDays) => this.setState({ newFrequencyDays })}
               />
-              <Text style={[styles.centeredText25, styles.fontWhite, { width: 100, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
+              <Text style={[styles.centeredText20, styles.fontWhite, { width: 80, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
             </View>
           </View>
-          <View style={{ marginBottom: 12, justifyContent: 'center' }}>
+          <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
             <TouchableOpacity onPress={debugDayAgo}>
-              <Text style={[styles.fontWhite, { paddingLeft: 12 }]}>(Debug) days ago (max 15): {this.state.debugNewDaysAgo}</Text>
+              <Text style={[styles.fontWhite, { paddingLeft: standardMargin }]}>(Debug) days ago (max 15): {this.state.debugNewDaysAgo}</Text>
             </TouchableOpacity>
           </View>
         </View>
