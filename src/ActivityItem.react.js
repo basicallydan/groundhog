@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableHighlight, Image } from 'react-native';
 
 import styles, { roundButtonWidth } from './styles';
 import hoursBetween from './utils/hoursBetween';
@@ -28,6 +28,7 @@ class ActivityItem extends Component {
     const plusButtonStyle = `${urgency}RoundButton`;
     const innerPlusButtonStyle = `${urgency}RoundButtonInner`;
     const titleStyle = `${urgency}Title`;
+    const maskName = './img/soon-round-mask-40.png';
 
     const onPress = () => {
       this.props.onPress(id);
@@ -57,6 +58,10 @@ class ActivityItem extends Component {
           </Text>
         </View>
         <View style={[styles.roundButton, { backgroundColor: 'transparent' }]}>
+          <Image
+            style={{ position: 'absolute', zIndex: 100 }}
+            source={require('./img/recent-round-mask-40.png')}
+          />
           <View style={[styles[mainBgColor], styles.roundButtonInner, { height: heightOfBubble }]} />
           <View style={[{ width: roundButtonWidth, height: roundButtonWidth, top: 0, left: 0 }]}>
             <Text style={styles.frequencyText}>{frequencyDays}</Text>
