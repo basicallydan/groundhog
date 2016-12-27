@@ -52,10 +52,11 @@ class ActivityFormView extends Component {
               style={{
                 marginTop: 3,
                 padding: standardMargin,
-                height: 40,
+                height: 50,
                 backgroundColor: '#5f5f5f',
                 color: 'white',
               }}
+              autoCapitalize="sentences"
               value={this.state.newTitle}
               placeholder="e.g. Water plants, wash curtains, vaccum"
               placeholderTextColor="#d4d4d4"
@@ -69,14 +70,14 @@ class ActivityFormView extends Component {
                 marginTop: standardMargin / 2,
                 paddingLeft: standardMargin,
                 paddingRight: standardMargin,
-                height: 40,
+                height: 50,
                 backgroundColor: '#5f5f5f',
                 flexGrow: 1,
                 flexDirection: 'row',
               }}
             >
               <Slider
-                style={{ flexGrow: 1 }}
+                style={{ flexGrow: 1, alignItems: 'center' }}
                 minimumTrackTintColor={'white'}
                 maximumTrackTintColor={'white'}
                 step={1}
