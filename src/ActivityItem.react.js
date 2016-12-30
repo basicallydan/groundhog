@@ -41,9 +41,17 @@ class ActivityItem extends Component {
 
     let lastActionString = `${hoursSince} hours ago`;
 
+    if (hoursSince === 1) {
+      lastActionString = 'An hour ago';
+    }
+
     if (hoursSince >= 24) {
       const days = roundHalf(hoursSince / 24);
-      lastActionString = `${days} days ago`;
+      if (days === 1) {
+        lastActionString = `${days} day ago`;
+      } else {
+        lastActionString = `${days} days ago`;
+      }
     } else if (hoursSince < 1) {
       lastActionString = 'In the last hour';
     }

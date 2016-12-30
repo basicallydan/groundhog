@@ -1,3 +1,4 @@
+// Will return hours, as an integer.
 export default function hoursBetween(firstDate, secondDate) {
   // The number of milliseconds in one day
   const ONE_HOUR = 1000 * 60 * 60;
