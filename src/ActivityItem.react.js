@@ -3,6 +3,7 @@ import { Text, View, TouchableHighlight, Image } from 'react-native';
 
 import styles, { roundButtonWidth } from './styles';
 import hoursBetween from './utils/hoursBetween';
+import roundHalf from './utils/roundHalf';
 
 const maskSources = {
   urgent: require('./img/urgent-round-mask-40.png'),
@@ -41,7 +42,7 @@ class ActivityItem extends Component {
     let lastActionString = `${hoursSince} hours ago`;
 
     if (hoursSince >= 24) {
-      const days = Math.round(hoursSince / 24);
+      const days = roundHalf(hoursSince / 24);
       lastActionString = `${days} days ago`;
     }
 
