@@ -50,8 +50,19 @@ class GroundhogView extends Component {
       .then(() => this.setState({ activities }));
   }
 
+  handleDelete(id) {
+    let activities = [];
+    activities = this.state.activities.slice();
+    const foundIndex = activities.findIndex(x => x.id === id);
+    if (foundIndex < 0) return;
+    activities.splice(foundIndex, 1);
+    saveActivities(activities)
+      .then(() => this.setState({ activities }));
+  }
+
   render() {
     const handleIncrement = this.handleIncrement.bind(this);
+    const handleDelete = this.handleDelete.bind(this);
     let view;
 
     const saveAndGoToListView = ({ newTitle, newFrequencyDays, debugNewDaysAgo }) => {
@@ -110,6 +121,7 @@ class GroundhogView extends Component {
           onSample={goToSampleForm}
           activities={this.state.activities}
           onIncrementButtonPress={handleIncrement}
+          onDeleteButtonPress={handleDelete}
           onAddButtonPress={goToFormView}
           onResetButtonPress={reset}
         />

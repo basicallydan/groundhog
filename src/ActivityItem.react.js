@@ -13,12 +13,10 @@ const maskSources = {
 
 class ActivityItem extends Component {
   render() {
-    const { id, title, lastAction, frequencyHours } = this.props.activity;
+    const { id, title, lastAction, frequencyHours, editMode } = this.props.activity;
     const frequencyDays = frequencyHours / 24;
     const hoursSince = hoursBetween(lastAction, new Date());
     const hoursUntil = frequencyHours - hoursSince;
-
-    console.log(title, 'days until:', hoursUntil);
 
     let urgency = 'recent';
 
@@ -59,8 +57,40 @@ class ActivityItem extends Component {
     const maxHeightOfBubble = roundButtonWidth;
     const heightOfBubble = maxHeightOfBubble - (maxHeightOfBubble * (hoursUntil / frequencyHours));
 
+    let itemStyles = [styles[itemStyle]];
+    let titleStyles = [styles[titleStyle]];
     const addButtonInnerStyles = [styles.roundButtonInner, styles.fontWhite, styles.centeredText25];
     const frequencyTextContainerStyles = [styles.roundButtonInner, styles.fontWhite, styles.centeredText16];
+
+    let firstColumn = (
+      <TouchableHighlight style={[styles[plusButtonStyle]]} onPress={onPress}>
+        <Text style={addButtonInnerStyles}>+</Text>
+      </TouchableHighlight>
+    );
+    let finalColumn = (
+      <View style={[styles.roundButton, { backgroundColor: 'transparent' }]}>
+        <Image
+          style={{ position: 'absolute', zIndex: 100 }}
+          source={maskSources[urgency]}
+        />
+        <View style={[styles.roundButtonInnerVariableHeight, styles[mainBgColor], { height: heightOfBubble }]} />
+        <Text style={[frequencyTextContainerStyles]}>{frequencyDays}</Text>
+      </View>
+    );
+
+    if (editMode) {
+      const deleteItem = () => {
+        this.props.onDelete(id);
+      };
+      firstColumn = null;
+      itemStyles = [styles.itemContainer];
+      titleStyles.push({ paddingLeft: 0 });
+      finalColumn = (
+        <TouchableHighlight style={[styles.urgentRoundButton, { alignItems: 'center', backgroundColor: 'transparent', borderColor: '#5f5f5f', borderWidth: 1, borderStyle: 'solid' }]} onPress={deleteItem}>
+          <Text style={[styles.roundButtonInner, styles.fontWhite, styles.text20, { textAlign: 'center', color: 'red' }]}>✕</Text>
+        </TouchableHighlight>
+      );
+    }
 
     if (this.props.android) {
       addButtonInnerStyles.push({ top: -2 });
@@ -68,11 +98,9 @@ class ActivityItem extends Component {
     }
 
     return (
-      <View style={styles[itemStyle]}>
-        <TouchableHighlight style={[styles[plusButtonStyle]]} onPress={onPress}>
-          <Text style={addButtonInnerStyles}>+</Text>
-        </TouchableHighlight>
-        <View style={styles[titleStyle]}>
+      <View style={itemStyles}>
+        {firstColumn}
+        <View style={titleStyles}>
           <Text style={{ flex: 0, fontWeight: 'bold', color: 'white' }}>
             {title}
           </Text>
@@ -80,14 +108,7 @@ class ActivityItem extends Component {
             {lastActionString}
           </Text>
         </View>
-        <View style={[styles.roundButton, { backgroundColor: 'transparent' }]}>
-          <Image
-            style={{ position: 'absolute', zIndex: 100 }}
-            source={maskSources[urgency]}
-          />
-          <View style={[styles.roundButtonInnerVariableHeight, styles[mainBgColor], { height: heightOfBubble }]} />
-          <Text style={[frequencyTextContainerStyles]}>{frequencyDays}</Text>
-        </View>
+        {finalColumn}
       </View>
     );
   }
@@ -96,7 +117,9 @@ class ActivityItem extends Component {
 ActivityItem.propTypes = {
   activity: React.PropTypes.object,
   onPress: React.PropTypes.func,
+  onDelete: React.PropTypes.func,
   android: React.PropTypes.bool,
+  editMode: React.PropTypes.bool.isRequired,
 };
 
 export default ActivityItem;

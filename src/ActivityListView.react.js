@@ -34,26 +34,40 @@ class ActivityListView extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      dataSource: ds.cloneWithRows(orderActivities(this.props.activities)),
+      editMode: false,
+      dataSource: ds.cloneWithRows(this.getActivitiesForDataSource(this.props.activities, true)),
     };
   }
 
   // This is the place to update state
   componentWillReceiveProps(nextProps) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(orderActivities(nextProps.activities)),
+      dataSource: this.state.dataSource.cloneWithRows(this.getActivitiesForDataSource(nextProps.activities, this.state.editMode)),
+    });
+  }
+
+  getActivitiesForDataSource(activities, editMode) {
+    return orderActivities(activities).map(activity => Object.assign({}, activity, { editMode }));
+  }
+
+  toggleEditMode() {
+    const newEditMode = !this.state.editMode;
+    this.setState({
+      editMode: newEditMode,
+      dataSource: this.state.dataSource.cloneWithRows(this.getActivitiesForDataSource(this.props.activities, newEditMode)),
     });
   }
 
   render() {
     let mainView;
+    const debug = false;
 
     if (this.state.dataSource.getSectionLengths()[0] > 0) {
       mainView = (
         <ListView
           enableEmptySections
           dataSource={this.state.dataSource}
-          renderRow={activity => <ActivityItem onPress={this.props.onIncrementButtonPress} activity={activity} android={this.props.android} />}
+          renderRow={activity => <ActivityItem onPress={this.props.onIncrementButtonPress} onDelete={this.props.onDeleteButtonPress} editMode={this.state.editMode} activity={activity} android={this.props.android} />}
         />
       );
     } else {
@@ -62,11 +76,22 @@ class ActivityListView extends Component {
       </View>);
     }
 
+    const toggleEditMode = this.toggleEditMode.bind(this);
+
+    const editButtonText = this.state.editMode ? 'Done' : 'Edit';
+
+    let resetButton;
+
+    if (debug) {
+      resetButton = (<TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onResetButtonPress}>Reset</Text></TouchableOpacity>);
+    }
+
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onAddButtonPress}>Add</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onResetButtonPress}>Reset</Text></TouchableOpacity>
+          {resetButton}
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={toggleEditMode}>{editButtonText}</Text></TouchableOpacity>
         </View>
         {mainView}
       </View>
@@ -78,6 +103,7 @@ ActivityListView.propTypes = {
   activities: React.PropTypes.array,
   children: React.PropTypes.node,
   onIncrementButtonPress: React.PropTypes.func.isRequired,
+  onDeleteButtonPress: React.PropTypes.func.isRequired,
   onAddButtonPress: React.PropTypes.func.isRequired,
   onResetButtonPress: React.PropTypes.func.isRequired,
   onSample: React.PropTypes.func,
