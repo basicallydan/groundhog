@@ -55,7 +55,7 @@ class GroundhogView extends Component {
     const handleIncrement = this.handleIncrement.bind(this);
     let view;
 
-    const goToListView = ({ newTitle, newFrequencyDays, debugNewDaysAgo }) => {
+    const saveAndGoToListView = ({ newTitle, newFrequencyDays, debugNewDaysAgo }) => {
       const activities = this.state.activities.slice();
       let newLastAction;
       if (debugNewDaysAgo) {
@@ -75,6 +75,12 @@ class GroundhogView extends Component {
       });
       saveActivities(activities)
         .then(() => this.setState({ activities }));
+    };
+
+    const goToListView = () => {
+      this.setState({
+        currentView: 'listView',
+      });
     };
 
     const goToFormView = () => {
@@ -108,7 +114,7 @@ class GroundhogView extends Component {
       );
     } else {
       view = (
-        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={goToListView} />
+        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={saveAndGoToListView} onCancel={goToListView} />
       );
     }
 

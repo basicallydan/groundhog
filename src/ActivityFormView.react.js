@@ -30,6 +30,10 @@ class ActivityFormView extends Component {
     });
   }
 
+  handleCancel = () => {
+    this.props.onCancel();
+  }
+
   render() {
     const debugDayAgo = () => {
       let debugNewDaysAgo = this.state.debugNewDaysAgo;
@@ -43,7 +47,8 @@ class ActivityFormView extends Component {
 
     return (
       <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <TouchableOpacity onPress={this.handleCancel}><Text style={styles.toolbarItem}>Cancel</Text></TouchableOpacity>
           <TouchableOpacity onPress={this.handleSave} disabled={!this.state.newTitle}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
         </View>
         <View>
@@ -107,6 +112,7 @@ class ActivityFormView extends Component {
 
 ActivityFormView.propTypes = {
   onSave: React.PropTypes.func.isRequired,
+  onCancel: React.PropTypes.func.isRequired,
   sampleActivity: React.PropTypes.object,
 };
 
