@@ -44,6 +44,8 @@ class ActivityItem extends Component {
     if (hoursSince >= 24) {
       const days = roundHalf(hoursSince / 24);
       lastActionString = `${days} days ago`;
+    } else if (hoursSince < 1) {
+      lastActionString = 'In the last hour';
     }
 
     const maxHeightOfBubble = roundButtonWidth;
