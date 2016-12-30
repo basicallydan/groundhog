@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Slider, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import Slider from 'react-native-slider';
 
 import styles, { standardMargin } from './styles';
 
@@ -56,6 +57,7 @@ class ActivityFormView extends Component {
                 backgroundColor: '#5f5f5f',
                 color: 'white',
               }}
+              underlineColorAndroid="rgba(0,0,0,0)"
               autoCapitalize="sentences"
               value={this.state.newTitle}
               placeholder="e.g. Water plants, wash curtains, vaccum"
@@ -74,10 +76,12 @@ class ActivityFormView extends Component {
                 backgroundColor: '#5f5f5f',
                 flexGrow: 1,
                 flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Slider
-                style={{ flexGrow: 1, alignItems: 'center' }}
+                style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
                 minimumTrackTintColor={'white'}
                 maximumTrackTintColor={'white'}
                 step={1}
