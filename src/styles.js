@@ -70,6 +70,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
   },
+  text20: {
+    fontSize: 20,
+  },
   centeredText20: {
     fontSize: 20,
     lineHeight: 20,

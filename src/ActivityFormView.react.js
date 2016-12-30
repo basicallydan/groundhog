@@ -81,7 +81,8 @@ class ActivityFormView extends Component {
               }}
             >
               <Slider
-                style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
+                style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center', marginTop: standardMargin / 2 }}
+                trackStyle={{ alignItems: 'center', justifyContent: 'center' }}
                 minimumTrackTintColor={'white'}
                 maximumTrackTintColor={'white'}
                 step={1}
@@ -90,7 +91,7 @@ class ActivityFormView extends Component {
                 maximumValue={30}
                 onValueChange={(newFrequencyDays) => this.setState({ newFrequencyDays })}
               />
-              <Text style={[styles.centeredText20, styles.fontWhite, { width: 80, lineHeight: 40, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
+              <Text style={[styles.text20, styles.fontWhite, { width: 80, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
             </View>
           </View>
           <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
