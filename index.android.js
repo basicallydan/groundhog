@@ -107,10 +107,13 @@ class GroundhogView extends Component {
 
     if (this.state.currentView === 'listView') {
       view = (
-        <ActivityListView onSample={goToSampleForm} activities={this.state.activities} handleIncrement={handleIncrement} android={true}>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToFormView}>Add</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={reset}>Reset</Text></TouchableOpacity>
-        </ActivityListView>
+        <ActivityListView
+          onSample={goToSampleForm}
+          activities={this.state.activities}
+          onIncrementButtonPress={handleIncrement}
+          onAddButtonPress={goToFormView}
+          onResetButtonPress={reset}
+        />
       );
     } else {
       view = (

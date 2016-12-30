@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { AppRegistry, View, StatusBar } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import ActivityFormView from './src/ActivityFormView.react';
-import styles from './src/styles';
 import daysAgo from './src/utils/daysAgo';
 import { saveActivities, getActivities, clearActions, getActions, saveAction } from './src/storage';
 
@@ -107,10 +106,13 @@ class GroundhogView extends Component {
 
     if (this.state.currentView === 'listView') {
       view = (
-        <ActivityListView onSample={goToSampleForm} activities={this.state.activities} handleIncrement={handleIncrement}>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={goToFormView}>Add</Text></TouchableOpacity>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={reset}>Reset</Text></TouchableOpacity>
-        </ActivityListView>
+        <ActivityListView
+          onSample={goToSampleForm}
+          activities={this.state.activities}
+          onIncrementButtonPress={handleIncrement}
+          onAddButtonPress={goToFormView}
+          onResetButtonPress={reset}
+        />
       );
     } else {
       view = (

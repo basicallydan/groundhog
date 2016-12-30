@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ListView, View } from 'react-native';
+import { ListView, View, Text, TouchableOpacity } from 'react-native';
 
 import ActivityItem from './ActivityItem.react';
 import EmptyActivityItem from './EmptyActivityItem.react';
+import styles from './styles';
 
 function orderActivities(activities) {
   if (activities.length < 1) {
@@ -52,7 +53,7 @@ class ActivityListView extends Component {
         <ListView
           enableEmptySections
           dataSource={this.state.dataSource}
-          renderRow={activity => <ActivityItem onPress={this.props.handleIncrement} activity={activity} android={this.props.android} />}
+          renderRow={activity => <ActivityItem onPress={this.props.onIncrementButtonPress} activity={activity} android={this.props.android} />}
         />
       );
     } else {
@@ -64,7 +65,8 @@ class ActivityListView extends Component {
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          {this.props.children}
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onAddButtonPress}>Add</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onResetButtonPress}>Reset</Text></TouchableOpacity>
         </View>
         {mainView}
       </View>
@@ -75,7 +77,9 @@ class ActivityListView extends Component {
 ActivityListView.propTypes = {
   activities: React.PropTypes.array,
   children: React.PropTypes.node,
-  handleIncrement: React.PropTypes.func,
+  onIncrementButtonPress: React.PropTypes.func.isRequired,
+  onAddButtonPress: React.PropTypes.func.isRequired,
+  onResetButtonPress: React.PropTypes.func.isRequired,
   onSample: React.PropTypes.func,
   android: React.PropTypes.bool,
 };
