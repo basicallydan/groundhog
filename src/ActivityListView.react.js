@@ -89,9 +89,9 @@ class ActivityListView extends Component {
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onAddButtonPress}>Add</Text></TouchableOpacity>
-          {resetButton}
           <TouchableOpacity><Text style={styles.toolbarItem} onPress={toggleEditMode}>{editButtonText}</Text></TouchableOpacity>
+          {resetButton}
+          <TouchableOpacity><Text style={styles.toolbarItem} onPress={this.props.onAddButtonPress}>Add</Text></TouchableOpacity>
         </View>
         {mainView}
       </View>

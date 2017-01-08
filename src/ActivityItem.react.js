@@ -20,12 +20,33 @@ class ActivityItem extends Component {
 
     let urgency = 'recent';
 
-    if (hoursUntil < 48) {
-      urgency = 'soon';
-    }
+    // It's more than three days
+    if (frequencyHours > 72) {
+      if (hoursUntil < 48) {
+        urgency = 'soon';
+      }
 
-    if (hoursUntil < 24) {
-      urgency = 'urgent';
+      if (hoursUntil < 24) {
+        urgency = 'urgent';
+      }
+    // It's two or three days
+    } else if (frequencyHours > 24) {
+      if (hoursUntil < 24) {
+        urgency = 'soon';
+      }
+
+      if (hoursUntil < 12) {
+        urgency = 'urgent';
+      }
+    // It's a day
+    } else {
+      if (hoursUntil < 12) {
+        urgency = 'soon';
+      }
+
+      if (hoursUntil < 6) {
+        urgency = 'urgent';
+      }
     }
 
     const mainBgColor = `${urgency}BackgroundColor`;
