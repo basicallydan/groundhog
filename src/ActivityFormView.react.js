@@ -27,10 +27,19 @@ class ActivityFormView extends Component {
   }
 
   handleSave = () => {
-    const { newTitle, newFrequencyDays, debugNewDaysAgo } = this.state;
+    let { newTitle } = this.state;
+    const { newFrequencyDays, debugNewDaysAgo } = this.state;
+    const { activities } = this.props;
+    newTitle = newTitle.trim();
     if (!newTitle) {
       this.setState({
         errorMessage: 'Please enter a title',
+      });
+      return;
+    }
+    if (activities.findIndex(a => a.title.toLowerCase() === newTitle.toLowerCase()) !== -1) {
+      this.setState({
+        errorMessage: 'You already have an activity with this title',
       });
       return;
     }
@@ -137,6 +146,7 @@ class ActivityFormView extends Component {
 }
 
 ActivityFormView.propTypes = {
+  activities: React.PropTypes.array,
   onSave: React.PropTypes.func.isRequired,
   onCancel: React.PropTypes.func.isRequired,
   sampleActivity: React.PropTypes.object,

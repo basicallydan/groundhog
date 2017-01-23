@@ -129,7 +129,7 @@ class GroundhogView extends Component {
       );
     } else {
       view = (
-        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={saveAndGoToListView} onCancel={goToListView} />
+        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={saveAndGoToListView} onCancel={goToListView} activities={this.state.activities} />
       );
     }
 
