@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { AppRegistry, View, StatusBar } from 'react-native';
 
 import ActivityListView from './src/ActivityListView.react';
 import ActivityFormView from './src/ActivityFormView.react';
-import styles from './src/styles';
 import daysAgo from './src/utils/daysAgo';
+import hoursAgo from './src/utils/hoursAgo';
 import { saveActivities, getActivities, clearActions, getActions, saveAction } from './src/storage';
 
 class GroundhogView extends Component {
@@ -66,10 +66,12 @@ class GroundhogView extends Component {
     const handleDelete = this.handleDelete.bind(this);
     let view;
 
-    const saveAndGoToListView = ({ newTitle, newFrequencyDays, debugNewDaysAgo }) => {
+    const saveAndGoToListView = ({ newTitle, newFrequencyDays, newHoursAgo, debugNewDaysAgo }) => {
       const activities = this.state.activities.slice();
       let newLastAction;
-      if (debugNewDaysAgo) {
+      if (newHoursAgo) {
+        newLastAction = hoursAgo(newHoursAgo);
+      } else if (debugNewDaysAgo) {
         newLastAction = daysAgo(debugNewDaysAgo);
       } else {
         newLastAction = new Date();

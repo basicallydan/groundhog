@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, TouchableOpacity, Animated } from 'react-native';
-// import { Motion, spring } from 'react-motion';
 import Slider from 'react-native-slider';
 
 import styles, { standardMargin } from './styles';
@@ -13,6 +12,7 @@ class ActivityFormView extends Component {
       this.state = {
         newTitle: this.props.sampleActivity.title,
         newFrequencyDays: this.props.sampleActivity.frequencyHours / 24,
+        newHoursAgo: 0,
         errorMessage: '',
         errorMessageColour: new Animated.Value(0),
       };
@@ -20,6 +20,7 @@ class ActivityFormView extends Component {
       this.state = {
         newTitle: '',
         newFrequencyDays: 7,
+        newHoursAgo: 0,
         errorMessage: '',
         errorMessageColour: new Animated.Value(0),
       };
@@ -28,7 +29,7 @@ class ActivityFormView extends Component {
 
   handleSave = () => {
     let { newTitle } = this.state;
-    const { newFrequencyDays, debugNewDaysAgo } = this.state;
+    const { newFrequencyDays, debugNewDaysAgo, newHoursAgo } = this.state;
     const { activities } = this.props;
     newTitle = newTitle.trim();
     if (!newTitle) {
@@ -46,6 +47,7 @@ class ActivityFormView extends Component {
     this.props.onSave({
       newTitle,
       newFrequencyDays,
+      newHoursAgo,
       debugNewDaysAgo,
     });
   }
@@ -64,6 +66,11 @@ class ActivityFormView extends Component {
         debugNewDaysAgo,
       });
     };
+
+    let hoursAgoLabel = 'Just now';
+    if (this.state.newHoursAgo > 0) {
+      hoursAgoLabel = `${this.state.newHoursAgo}h ago`;
+    }
 
     const { errorMessage } = this.state;
     let errorMessageElement;
@@ -131,7 +138,36 @@ class ActivityFormView extends Component {
                 maximumValue={30}
                 onValueChange={(newFrequencyDays) => this.setState({ newFrequencyDays })}
               />
-              <Text style={[styles.text20, styles.fontWhite, { width: 80, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
+              <Text style={[styles.text20, styles.fontWhite, { width: 90, textAlign: 'right' }]}>{this.state.newFrequencyDays} days</Text>
+            </View>
+          </View>
+          <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
+            <Text style={{ marginLeft: standardMargin, fontSize: 12, color: 'white', height: 16 }}>Most recent occurrence</Text>
+            <View
+              style={{
+                marginTop: standardMargin / 2,
+                paddingLeft: standardMargin,
+                paddingRight: standardMargin,
+                height: 50,
+                backgroundColor: '#5f5f5f',
+                flexGrow: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Slider
+                style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center', marginTop: standardMargin / 2 }}
+                trackStyle={{ alignItems: 'center', justifyContent: 'center' }}
+                minimumTrackTintColor={'white'}
+                maximumTrackTintColor={'white'}
+                step={1}
+                minimumValue={0}
+                value={this.state.newHoursAgo}
+                maximumValue={24}
+                onValueChange={(newHoursAgo) => this.setState({ newHoursAgo })}
+              />
+              <Text style={[styles.text20, styles.fontWhite, { width: 90, textAlign: 'right' }]}>{hoursAgoLabel}</Text>
             </View>
           </View>
           <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
