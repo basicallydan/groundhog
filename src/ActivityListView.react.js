@@ -32,10 +32,11 @@ class ActivityListView extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    const initialEditMode = false;
 
     this.state = {
-      editMode: false,
-      dataSource: ds.cloneWithRows(this.getActivitiesForDataSource(this.props.activities, true)),
+      editMode: initialEditMode,
+      dataSource: ds.cloneWithRows(this.getActivitiesForDataSource(this.props.activities, initialEditMode)),
     };
   }
 
