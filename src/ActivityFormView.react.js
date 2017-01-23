@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Animated } from 'react-native';
+// import { Motion, spring } from 'react-motion';
 import Slider from 'react-native-slider';
 
 import styles, { standardMargin } from './styles';
@@ -12,17 +13,27 @@ class ActivityFormView extends Component {
       this.state = {
         newTitle: this.props.sampleActivity.title,
         newFrequencyDays: this.props.sampleActivity.frequencyHours / 24,
+        errorMessage: '',
+        errorMessageColour: new Animated.Value(0),
       };
     } else {
       this.state = {
         newTitle: '',
         newFrequencyDays: 7,
+        errorMessage: '',
+        errorMessageColour: new Animated.Value(0),
       };
     }
   }
 
   handleSave = () => {
     const { newTitle, newFrequencyDays, debugNewDaysAgo } = this.state;
+    if (!newTitle) {
+      this.setState({
+        errorMessage: 'Please enter a title',
+      });
+      return;
+    }
     this.props.onSave({
       newTitle,
       newFrequencyDays,
@@ -45,15 +56,30 @@ class ActivityFormView extends Component {
       });
     };
 
+    const { errorMessage } = this.state;
+    let errorMessageElement;
+
+    if (errorMessage) {
+      Animated.timing(this.state.errorMessageColour, {
+        toValue: 1,
+        duration: 900,
+      }).start();
+      const color = this.state.errorMessageColour.interpolate({
+        inputRange: [0, 0.1, 1],
+        outputRange: ['rgba(255, 0, 0, 0)', 'rgba(255, 0, 0, 1)', 'rgba(255, 0, 0, 0.7)'],
+      });
+      errorMessageElement = (<Animated.Text style={{ paddingLeft: standardMargin, color }}>({this.state.errorMessage})</Animated.Text>);
+    }
+
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={this.handleCancel}><Text style={styles.toolbarItem}>Cancel</Text></TouchableOpacity>
-          <TouchableOpacity onPress={this.handleSave} disabled={!this.state.newTitle}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
+          <TouchableOpacity onPress={this.handleSave}><Text style={styles.toolbarItem}>Save</Text></TouchableOpacity>
         </View>
         <View>
           <View style={{ marginBottom: standardMargin }}>
-            <Text style={{ marginLeft: standardMargin, fontSize: 12, color: 'white', height: 16 }}>Activity title</Text>
+            <Text style={{ marginLeft: standardMargin, fontSize: 12, color: 'white', height: 16 }}>Activity title {errorMessageElement}</Text>
             <TextInput
               style={{
                 marginTop: 3,
