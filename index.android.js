@@ -5,7 +5,7 @@ import ContainerView from './src/ContainerView.react';
 import { colors } from './src/styles';
 
 function GroundhogView() {
-  StatusBar.setBackgroundColor(colors.mainBackgroundColour);
+  StatusBar.setBackgroundColor(colors.mainBackgroundColor);
   return (
     <ContainerView android />
   );

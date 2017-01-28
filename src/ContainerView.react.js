@@ -156,8 +156,10 @@ export default class ContainerView extends Component {
 
 ContainerView.propTypes = {
   android: React.PropTypes.bool,
+  debug: React.PropTypes.bool,
 };
 
 ContainerView.defaultProps = {
   android: false,
+  debug: false,
 };
