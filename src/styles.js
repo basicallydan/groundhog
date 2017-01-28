@@ -9,6 +9,15 @@ const darkOrange = '#7F4C00';
 const green = '#417505';
 const darkGreen = '#305603';
 
+const grey = '#5f5f5f';
+const darkGrey = '#303030';
+
+export const colors = {
+  red, darkRed, orange, darkOrange, green, darkGreen, grey, darkGrey,
+  mainBackgroundColor: darkGrey,
+  accentBackgroundColor: grey,
+};
+
 export const roundButtonWidth = 40;
 
 export const standardMargin = 14;

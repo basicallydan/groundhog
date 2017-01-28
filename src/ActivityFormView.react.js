@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, TouchableOpacity, Animated } from 'react-native';
 import Slider from 'react-native-slider';
 
-import styles, { standardMargin } from './styles';
+import styles, { standardMargin, colors } from './styles';
 
 class ActivityFormView extends Component {
   constructor(props) {
@@ -101,7 +101,7 @@ class ActivityFormView extends Component {
                 marginTop: 3,
                 padding: standardMargin,
                 height: 50,
-                backgroundColor: '#5f5f5f',
+                backgroundColor: colors.accentBackgroundColor,
                 color: 'white',
               }}
               underlineColorAndroid="rgba(0,0,0,0)"
@@ -120,7 +120,7 @@ class ActivityFormView extends Component {
                 paddingLeft: standardMargin,
                 paddingRight: standardMargin,
                 height: 50,
-                backgroundColor: '#5f5f5f',
+                backgroundColor: colors.accentBackgroundColor,
                 flexGrow: 1,
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -149,7 +149,7 @@ class ActivityFormView extends Component {
                 paddingLeft: standardMargin,
                 paddingRight: standardMargin,
                 height: 50,
-                backgroundColor: '#5f5f5f',
+                backgroundColor: colors.accentBackgroundColor,
                 flexGrow: 1,
                 flexDirection: 'row',
                 alignItems: 'center',

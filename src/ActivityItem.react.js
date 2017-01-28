@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image } from 'react-native';
 
-import styles, { roundButtonWidth } from './styles';
+import styles, { roundButtonWidth, colors } from './styles';
 import hoursBetween from './utils/hoursBetween';
 import roundHalf from './utils/roundHalf';
 
@@ -107,7 +107,7 @@ class ActivityItem extends Component {
       itemStyles = [styles.itemContainer];
       titleStyles.push({ paddingLeft: 0 });
       finalColumn = (
-        <TouchableHighlight style={[styles.urgentRoundButton, { alignItems: 'center', backgroundColor: 'transparent', borderColor: '#5f5f5f', borderWidth: 1, borderStyle: 'solid' }]} onPress={deleteItem}>
+        <TouchableHighlight style={[styles.urgentRoundButton, { alignItems: 'center', backgroundColor: 'transparent', borderColor: colors.accentBackgroundColor, borderWidth: 1, borderStyle: 'solid' }]} onPress={deleteItem}>
           <Text style={[styles.roundButtonInner, styles.fontWhite, styles.text20, { textAlign: 'center', color: 'red' }]}>✕</Text>
         </TouchableHighlight>
       );

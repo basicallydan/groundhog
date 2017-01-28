@@ -6,6 +6,7 @@ import ActivityFormView from './ActivityFormView.react';
 import daysAgo from './utils/daysAgo';
 import hoursAgo from './utils/hoursAgo';
 import { saveActivities, getActivities, clearActions, getActions, saveAction } from './storage';
+import { colors } from './styles';
 
 export default class ContainerView extends Component {
   // Initialize the hardcoded data
@@ -138,7 +139,7 @@ export default class ContainerView extends Component {
 
     const viewStyle = {
       flex: 1,
-      backgroundColor: '#303030',
+      backgroundColor: colors.mainBackgroundColor,
     };
 
     if (!this.props.android) {
