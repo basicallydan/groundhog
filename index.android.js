@@ -1,9 +1,10 @@
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, StatusBar } from 'react-native';
 
 import ContainerView from './src/ContainerView.react';
 
 function GroundhogView() {
+  StatusBar.setBackgroundColor('#303030');
   return (
     <ContainerView android />
   );

@@ -36,10 +36,6 @@ export default class ContainerView extends Component {
       });
 
     StatusBar.setBarStyle('light-content', true);
-
-    if (this.props.android) {
-      StatusBar.setBackgroundColor('#5f5f5f');
-    }
   }
 
   handleIncrement(id) {
