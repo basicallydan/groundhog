@@ -133,7 +133,7 @@ export default class ContainerView extends Component {
       );
     } else {
       view = (
-        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={saveAndGoToListView} onCancel={goToListView} activities={this.state.activities} />
+        <ActivityFormView sampleActivity={this.state.sampleActivity} onSave={saveAndGoToListView} onCancel={goToListView} activities={this.state.activities} debug={this.props.debug} />
       );
     }
 

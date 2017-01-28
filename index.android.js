@@ -7,7 +7,7 @@ import { colors } from './src/styles';
 function GroundhogView() {
   StatusBar.setBackgroundColor(colors.mainBackgroundColor);
   return (
-    <ContainerView android />
+    <ContainerView android debug={false} />
   );
 }
 

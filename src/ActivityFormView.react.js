@@ -87,6 +87,16 @@ class ActivityFormView extends Component {
       errorMessageElement = (<Animated.Text style={{ paddingLeft: standardMargin, color }}>({this.state.errorMessage})</Animated.Text>);
     }
 
+    let debugView;
+
+    if (this.props.debug) {
+      debugView = (<View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
+        <TouchableOpacity onPress={debugDayAgo}>
+          <Text style={[styles.fontWhite, { paddingLeft: standardMargin }]}>(Debug) days ago (max 15): {this.state.debugNewDaysAgo}</Text>
+        </TouchableOpacity>
+      </View>);
+    }
+
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -170,11 +180,7 @@ class ActivityFormView extends Component {
               <Text style={[styles.text20, styles.fontWhite, { width: 90, textAlign: 'right' }]}>{hoursAgoLabel}</Text>
             </View>
           </View>
-          <View style={{ marginBottom: standardMargin, justifyContent: 'center' }}>
-            <TouchableOpacity onPress={debugDayAgo}>
-              <Text style={[styles.fontWhite, { paddingLeft: standardMargin }]}>(Debug) days ago (max 15): {this.state.debugNewDaysAgo}</Text>
-            </TouchableOpacity>
-          </View>
+          {debugView}
         </View>
       </View>
     );
@@ -186,6 +192,7 @@ ActivityFormView.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   onCancel: React.PropTypes.func.isRequired,
   sampleActivity: React.PropTypes.object,
+  debug: React.PropTypes.bool,
 };
 
 export default ActivityFormView;
